@@ -1,0 +1,86 @@
+# To-Do List Application
+
+# A list to store the tasks
+todo_list = []
+
+# Function to display the list of tasks
+def view_tasks():
+    if todo_list:
+        print("\n--- To-Do List ---")
+        for i, task in enumerate(todo_list, start=1):
+            status = "✓" if task['completed'] else "✗"
+            print(f"{i}. {task['task']} [{status}]")
+    else:
+        print("\nYour to-do list is empty!\n")
+
+# Function to add a task
+def add_task():
+    task = input("Enter a new task: ")
+    todo_list.append({'task': task, 'completed': False})
+    print(f"Task '{task}' added!\n")
+
+# Function to update a task
+def update_task():
+    view_tasks()
+    if todo_list:
+        task_num = int(input("\nEnter the task number you want to update: "))
+        if 1 <= task_num <= len(todo_list):
+            new_task = input("Enter the new task description: ")
+            todo_list[task_num - 1]['task'] = new_task
+            print(f"Task {task_num} updated!\n")
+        else:
+            print("Invalid task number.\n")
+
+# Function to delete a task
+def delete_task():
+    view_tasks()
+    if todo_list:
+        task_num = int(input("\nEnter the task number you want to delete: "))
+        if 1 <= task_num <= len(todo_list):
+            removed_task = todo_list.pop(task_num - 1)
+            print(f"Task '{removed_task['task']}' deleted!\n")
+        else:
+            print("Invalid task number.\n")
+
+# Function to mark a task as completed
+def mark_completed():
+    view_tasks()
+    if todo_list:
+        task_num = int(input("\nEnter the task number to mark as completed: "))
+        if 1 <= task_num <= len(todo_list):
+            todo_list[task_num - 1]['completed'] = True
+            print(f"Task {task_num} marked as completed!\n")
+        else:
+            print("Invalid task number.\n")
+
+# Main menu function to handle user interaction
+def todo_manager():
+    while True:
+        print("=== To-Do List Manager ===")
+        print("1. View To-Do List")
+        print("2. Add Task")
+        print("3. Update Task")
+        print("4. Delete Task")
+        print("5. Mark Task as Completed")
+        print("6. Exit")
+        
+        choice = input("Enter your choice (1/2/3/4/5/6): ")
+        
+        if choice == '1':
+            view_tasks()
+        elif choice == '2':
+            add_task()
+        elif choice == '3':
+            update_task()
+        elif choice == '4':
+            delete_task()
+        elif choice == '5':
+            mark_completed()
+        elif choice == '6':
+            print("Exiting To-Do List Manager.")
+            break
+        else:
+            print("Invalid choice, please try again.\n")
+
+# Run the To-Do List Manager
+todo_manager()
